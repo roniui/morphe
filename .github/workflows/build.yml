@@ -114,29 +114,37 @@ jobs:
         run: |
           cd build || { echo "build folder not found"; exit 1; }
 
-          TG_CHAT="@rvc_magisk"
+          TG_CHAT="@revance_update"
           NL=$'\n'
           APKS=""
           MODULES=""
           for OUTPUT in *; do
             DL_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/${{ steps.next_ver_code.outputs.NEXT_VER_CODE }}/${OUTPUT}"
+            
+            APP_NAME=$(echo "$OUTPUT" | sed -E 's/-v[0-9].*//' | tr '-' ' ' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+
+            if [[ "${OUTPUT,,}" == *"music"* ]]; then
+              if [[ "$OUTPUT" =~ (arm64-v8a|arm-v7a) ]]; then
+                APP_NAME="${APP_NAME} (${BASH_REMATCH[1]})"
+              fi
+            fi
+
             if [[ $OUTPUT = *.apk ]]; then
-              APKS+="${NL}📦[${OUTPUT}](${DL_URL})"
+              APKS+="${NL}${NL}*${APP_NAME}:*${NL}📥[${OUTPUT}](${DL_URL})"
             elif [[ $OUTPUT = *.zip ]]; then
-              MODULES+="${NL}📦[${OUTPUT}](${DL_URL})"
+              MODULES+="${NL}${NL}*${APP_NAME}:*${NL}📦[${OUTPUT}](${DL_URL})"
             fi
           done
-          MODULES=${MODULES#"$NL"}
-          APKS=${APKS#"$NL"}
+          
+          MODULES=${MODULES#"$NL$NL"}
+          APKS=${APKS#"$NL$NL"}
 
-          BODY="$(sed 's/^\* \*\*/↪ \*\*/g; s/^\* `/↪ \*\*/g; s/`/\*/g; s/^\* /\↪/g; s/\*\*/\*/g; s/###//g; s/^- /↪ /g; /^==/d;' ../build.md)"
+          BODY="$(sed '/Music-Morphe/d; /Reddit:/d; /YouTube-Morphe/d; /^$/d; s/^\* \*\*/↪ \*\*/g; s/^\* `/↪ \*\*/g; s/`/\*/g; s/^\* /\↪/g; s/\*\*/\*/g; s/###//g; s/^- /↪ /g; /^==/d; G' ../build.md)"
           MSG="*New build!*
 
           ${BODY}
 
           *▼ Download Links:*
-          Modules:
-          ${MODULES}
 
           APKs:
           ${APKS}
