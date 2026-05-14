@@ -148,7 +148,7 @@ jobs:
           MODULES=${MODULES#"$NL$NL"}
           APKS=${APKS#"$NL$NL"}
 
-          BODY="$(sed '/Music-Morphe/d; /Reddit:/d; /YouTube-Morphe/d; /^$/d; s/^\* \*\*/↪ \*\*/g; s/^\* `/↪ \*\*/g; s/`/\*/g; s/^\* /\↪/g; s/\*\*/\*/g; s/###//g; s/^- /↪ /g; /^==/d; G' ../build.md)"
+          BODY="$(sed '/Music-Morphe/d; /Reddit-Morphe/d; /YouTube-Morphe/d; /^$/d; s/^\* \*\*/↪ \*\*/g; s/^\* `/↪ \*\*/g; s/`/\*/g; s/^\* /\↪/g; s/\*\*/\*/g; s/###//g; s/^- /↪ /g; /^==/d; G' ../build.md)"
           MSG="*New build!*
 
           ${BODY}
