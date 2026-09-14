@@ -4,7 +4,7 @@ Reddit-Morphe: 2026.14.0
 YouTube-Morphe-Universal: 21.13.164  
 
 Install [MicroG-RE](https://github.com/MorpheApp/MicroG-RE/releases) by Morphe for non-root YouTube and YT Music APKs  
-Patches: MorpheApp/patches-1.42.0.mpp  
-[Changelog](https://github.com/MorpheApp/morphe-patches/releases/tag/v1.42.0)
+Patches: MorpheApp/patches-1.43.0.mpp  
+[Changelog](https://github.com/MorpheApp/morphe-patches/releases/tag/v1.43.0)
 
-CLI: MorpheApp/morphe-desktop-1.15.1-all.jar    
+CLI: MorpheApp/morphe-desktop-1.16.0-all.jar    
